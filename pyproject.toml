@@ -1,0 +1,112 @@
+[project]
+name = "rl-statistical-arbitrage"
+version = "0.1.0"
+description = "Regime-aware reinforcement learning agent for statistical arbitrage on cointegrated equity pairs."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "9shrey" }]
+keywords = [
+    "statistical-arbitrage", "pairs-trading", "cointegration", "reinforcement-learning",
+    "ppo", "stable-baselines3", "gymnasium", "hmm", "market-regime", "backtesting",
+    "walk-forward", "sharpe", "quantitative-finance", "algorithmic-trading",
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.10",
+    "scikit-learn>=1.2",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "typer>=0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-timeout>=2.1",
+    "hypothesis>=6.80",
+    "ruff>=0.4",
+    "black>=24.0",
+]
+stats = [
+    "statsmodels>=0.14",
+    "hmmlearn>=0.3",
+]
+rl = [
+    "gymnasium>=0.29",
+    "stable-baselines3>=2.2",
+    "torch>=2.0",
+]
+viz = [
+    "matplotlib>=3.7",
+    "mlflow>=2.5",
+]
+data = [
+    "yfinance>=0.2",
+    "pandas-market-calendars>=4.0",
+]
+all = [
+    "rl-statistical-arbitrage[dev,stats,rl,viz,data]",
+]
+
+[project.scripts]
+arb = "arb.cli:app"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+arb = ["py.typed"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-q --strict-markers --strict-config"
+testpaths = ["tests"]
+markers = [
+    "slow: long-running tests (excluded from default run)",
+    "integration: end-to-end integration tests",
+    "property: hypothesis-based property tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::FutureWarning",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src/arb"]
+omit = ["src/arb/cli.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "\\.\\.\\.",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+ignore_missing_imports = true
+files = ["src/arb"]

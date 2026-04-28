@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# MLflow / artifacts
+mlruns/
+artifacts/
+*.zip
+
+# Data
+data/raw/*
+data/interim/*
+data/processed/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Notebooks
+.ipynb_checkpoints/

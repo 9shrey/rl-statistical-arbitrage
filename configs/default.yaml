@@ -1,0 +1,72 @@
+seed: 42
+
+data:
+  source: yfinance
+  bar_interval: 1d
+  start: 2018-01-01
+  end:   2024-12-31
+  symbols: [AAPL, MSFT]
+  cache_dir: data/raw
+
+pairs:
+  corr_threshold: 0.80
+  corr_window_days: 252
+  pvalue_max: 0.05
+  half_life_min_days: 1
+  half_life_max_days: 60
+  top_k: 10
+
+spread:
+  hedge_window_days: 60
+  zscore_window_days: 20
+
+regime:
+  n_states: 2
+  features: [realized_vol, abs_zscore, return_autocorr]
+  refit_each_fold: true
+
+env:
+  action_space: discrete
+  features: [zscore, realized_vol, bid_ask_proxy, regime_onehot, position]
+  reward:
+    lambda_turnover: 0.0005
+    dd_threshold: 0.10
+    dd_penalty: 0.5
+    clip: 0.05
+
+costs:
+  commission_bps_per_side: 0.5
+  slippage_half_spread_bps: 1.0
+  impact_bps_per_pct_adv: 10.0
+
+risk:
+  vol_target_annual: 0.10
+  max_position_notional_pct_equity: 0.50
+  hard_dd_stop: 0.20
+
+train:
+  algo: zscore_baseline   # zscore_baseline | grid_baseline | ppo
+  total_timesteps: 200000
+  n_envs: 1
+  ppo:
+    learning_rate: 3.0e-4
+    n_steps: 2048
+    batch_size: 64
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_range: 0.2
+    ent_coef: 0.0
+
+backtest:
+  scheme: walk_forward
+  train_window_days: 504
+  test_window_days: 126
+  step_days: 126
+  warm_start: false
+
+mlflow:
+  enabled: false
+  tracking_uri: file:./mlruns
+  experiment: rl_stat_arb
+
+artifacts_dir: artifacts
