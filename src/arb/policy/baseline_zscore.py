@@ -23,11 +23,11 @@ class ZScoreThresholdPolicy:
     def reset(self) -> None:
         return None
 
-    def predict(self, obs: np.ndarray, deterministic: bool = True) -> int:  # noqa: ARG002
+    def predict(self, obs: np.ndarray, deterministic: bool = True) -> int:
         z = float(obs[0])
-        position = int(round(float(obs[-1])))
+        position = round(float(obs[-1]))
         if not np.isfinite(z):
-            return ACTION_FLAT if position == 0 else ACTION_FLAT
+            return ACTION_FLAT
         # Hard stop
         if abs(z) >= self.stop:
             return ACTION_FLAT

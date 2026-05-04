@@ -17,7 +17,7 @@ import pandas as pd
 
 from arb.backtest.metrics import summary
 from arb.backtest.runner import run_policy_full
-from arb.backtest.splitter import Fold, walk_forward_splits
+from arb.backtest.splitter import walk_forward_splits
 from arb.config.schema import AppConfig
 from arb.env.costs import CostModel
 from arb.env.gym_env import make_env_spec
