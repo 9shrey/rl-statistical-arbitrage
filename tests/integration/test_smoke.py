@@ -9,8 +9,8 @@ from pathlib import Path
 
 import pytest
 
-from arb.config import load_config
 from arb.cli import _pipeline
+from arb.config import load_config
 
 
 @pytest.mark.integration

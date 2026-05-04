@@ -3,7 +3,14 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from arb.env import ACTION_FLAT, ACTION_LONG, ACTION_SHORT, CostModel, PairsTradingEnv, make_env_spec
+from arb.env import (
+    ACTION_FLAT,
+    ACTION_LONG,
+    ACTION_SHORT,
+    CostModel,
+    PairsTradingEnv,
+    make_env_spec,
+)
 
 
 def _toy_df(n: int = 50) -> pd.DataFrame:

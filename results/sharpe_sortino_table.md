@@ -1,0 +1,5 @@
+| policy | total_return | sharpe | sortino | max_drawdown | calmar |
+| --- | --- | --- | --- | --- | --- |
+| adaptive_rl_proxy | 0.0516 | 9.756 | 39.517 | -0.0017 | 31.042 |
+| zscore_baseline | 0.0562 | 10.212 | 40.748 | -0.0017 | 33.831 |
+| buy_hold_pair | 0.0048 | 0.552 | 1.006 | -0.0195 | 0.248 |

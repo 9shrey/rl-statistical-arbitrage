@@ -10,6 +10,6 @@ class BuyHoldSpreadPolicy:
     def reset(self) -> None:
         return None
 
-    def predict(self, obs: np.ndarray, deterministic: bool = True) -> int:  # noqa: ARG002
+    def predict(self, obs: np.ndarray, deterministic: bool = True) -> int:
         _ = obs
         return ACTION_LONG

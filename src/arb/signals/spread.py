@@ -22,7 +22,6 @@ def rolling_hedge_ratio(price_a: pd.Series, price_b: pd.Series, window: int) -> 
     # Cumulative sums for O(n) rolling OLS.
     csum_a = np.concatenate([[0.0], np.cumsum(a)])
     csum_b = np.concatenate([[0.0], np.cumsum(b)])
-    csum_aa = np.concatenate([[0.0], np.cumsum(a * a)])
     csum_bb = np.concatenate([[0.0], np.cumsum(b * b)])
     csum_ab = np.concatenate([[0.0], np.cumsum(a * b)])
 
@@ -36,10 +35,7 @@ def rolling_hedge_ratio(price_a: pd.Series, price_b: pd.Series, window: int) -> 
         mean_b = sum_b / window
         var_b = sum_bb / window - mean_b * mean_b
         cov_ab = sum_ab / window - mean_a * mean_b
-        if var_b > 1e-12:
-            beta = cov_ab / var_b
-        else:
-            beta = np.nan
+        beta = cov_ab / var_b if var_b > 1e-12 else np.nan
         out[t - 1] = beta
 
     s = pd.Series(out, index=price_a.index, name="hedge_ratio")

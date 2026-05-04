@@ -19,7 +19,7 @@ class RegimeModel:
     _model: object = None
     _state_order: np.ndarray | None = None
 
-    def fit(self, X: np.ndarray) -> "RegimeModel":
+    def fit(self, X: np.ndarray) -> RegimeModel:
         X = np.asarray(X, dtype=float)
         try:
             from hmmlearn.hmm import GaussianHMM  # type: ignore

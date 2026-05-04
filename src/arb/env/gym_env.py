@@ -11,7 +11,7 @@ Reward:       see :func:`arb.env.reward.compute_reward`.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, ClassVar
 
 import numpy as np
 import pandas as pd
@@ -66,7 +66,7 @@ def make_env_spec(
     The DataFrame must already include feature columns and a 'spread' column.
     Rows with NaN in any required column are dropped to ensure finiteness.
     """
-    needed = list(feature_cols) + ["spread", "price_a", "price_b", "hedge_ratio"]
+    needed = [*feature_cols, "spread", "price_a", "price_b", "hedge_ratio"]
     work = df.dropna(subset=needed).reset_index(drop=True).copy()
     # Per-bar % return on a +1 spread position: change in spread / |gross_notional|
     # Approximate gross notional with |price_a| + |hedge_ratio * price_b|
@@ -92,7 +92,7 @@ def make_env_spec(
 class PairsTradingEnv:
     """Plain Python environment with a Gymnasium-compatible surface."""
 
-    metadata = {"render_modes": ["human", "none"]}
+    metadata: ClassVar[dict[str, list[str]]] = {"render_modes": ["human", "none"]}
 
     def __init__(self, spec: EnvSpec, seed: int = 0):
         self.spec = spec
