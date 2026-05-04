@@ -1,0 +1,26 @@
+[
+  {
+    "policy": "adaptive_rl_proxy",
+    "total_return": 0.0516,
+    "sharpe": 9.756,
+    "sortino": 39.517,
+    "max_drawdown": -0.0017,
+    "calmar": 31.042
+  },
+  {
+    "policy": "zscore_baseline",
+    "total_return": 0.0562,
+    "sharpe": 10.212,
+    "sortino": 40.748,
+    "max_drawdown": -0.0017,
+    "calmar": 33.831
+  },
+  {
+    "policy": "buy_hold_pair",
+    "total_return": 0.0048,
+    "sharpe": 0.552,
+    "sortino": 1.006,
+    "max_drawdown": -0.0195,
+    "calmar": 0.248
+  }
+]
